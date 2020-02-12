@@ -4,7 +4,7 @@ when a user takes the quiz, the time start counting. Each question comes with fo
 When the quiz is over, the app displays the number of correct answer(Result). And the user enters their name and submit. The last user's name saves on the local storage.
 
 
-Screenshot(Code Quiz): ![Image](/images/CodeQuiz.png)
+Screenshot(Code Quiz): ![Image](CodeQuiz.png)
 
 
 
