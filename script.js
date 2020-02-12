@@ -1,4 +1,4 @@
-var count =60
+var count = 60
 
 
 var questions = [
@@ -7,21 +7,21 @@ var questions = [
     new Question("There are ____ main components of object oriented programming.", ["1", "6", "2", "4"], "4"),
     new Question("Which language is used for web apps?", ["PHP", "Python", "javascript", "ALL"], "ALL"),
     new Question("MVC is a ____", ["Language", "Library", "Framework", "All"], "Framework")
-    ];
-
-    
-    var quiz = new Quiz(questions);
+];
 
 
+var quiz = new Quiz(questions);
 
-    
+
+
+
 function Question(text, choices, answer) {
-    this.text=text;
-    this.choices=choices;
-    this.answer=answer;
+    this.text = text;
+    this.choices = choices;
+    this.answer = answer;
 }
 
-Question.prototype.correctAnswer = function(choice) {
+Question.prototype.correctAnswer = function (choice) {
     return choice === this.answer;
 };
 
@@ -35,20 +35,20 @@ function Quiz(questions) {
 }
 
 //Functions to check correctAnswer to usersAnswer
-Quiz.prototype.getQuestionIndex = function(){
+Quiz.prototype.getQuestionIndex = function () {
     return this.questions[this.questionIndex];
 }
 
-Quiz.prototype.isEnded = function() {
+Quiz.prototype.isEnded = function () {
     return this.questions.length === this.questionIndex;
 }
 
-Quiz.prototype.guess = function(answer) {
-    
-    if(this.getQuestionIndex().correctAnswer(answer)) {
+Quiz.prototype.guess = function (answer) {
+
+    if (this.getQuestionIndex().correctAnswer(answer)) {
         this.score++;
     }
-    
+
     this.questionIndex++;
 }
 
@@ -56,12 +56,12 @@ Quiz.prototype.guess = function(answer) {
 var countInterval;
 
 function startTimer() {
-    countInterval = setInterval (function(){
+    countInterval = setInterval(function () {
         if (count > 0) {
             count--;
-        
+
             document.getElementById("timer").textContent = "0:" + count;
-        }else{
+        } else {
             clearInterval(countInterval)
             showScores();
         }
@@ -73,7 +73,7 @@ function startTimer() {
 
 //
 function populate() {
-    if(quiz.isEnded()) {
+    if (quiz.isEnded()) {
         clearInterval(countInterval)
         showScores();
     }
@@ -84,7 +84,7 @@ function populate() {
 
         //show choices
         var choices = quiz.getQuestionIndex().choices;
-        for (var i=0; i<choices.length; i++) {
+        for (var i = 0; i < choices.length; i++) {
             var element = document.getElementById("choice" + i);
             element.innerHTML = choices[i];
             guess("btn" + i, choices[i]);
@@ -97,7 +97,7 @@ function populate() {
 
 function guess(id, guess) {
     var button = document.getElementById(id);
-    button.onclick = function() {
+    button.onclick = function () {
         quiz.guess(guess);
         populate();
     }
@@ -119,7 +119,7 @@ function showScores() {
 
 startTimer();
 
-  
+
 // save to local storage
 var nameInput = document.querySelector("#name");
 var submitButton = document.querySelector("#btnn");
@@ -127,25 +127,25 @@ var msgDiv = document.querySelector("#msg");
 var userScore = document.querySelector("#score");
 
 
-function displayMessage(type,message) {
+function displayMessage(type, message) {
     msgDiv.textContent = message;
-    msgDiv.setAttribute("class",type);
+    msgDiv.setAttribute("class", type);
 }
 
-submitButton.addEventListener("click",function(event){
+submitButton.addEventListener("click", function (event) {
     event.preventDefault();
 
     var user = {
-        name:nameInput.value.trim(),
+        name: nameInput.value.trim(),
     };
 
-    if(user.name ==="") {
+    if (user.name === "") {
         displayMessage("error", "Name cannot be blank");
-    }else {
+    } else {
         displayMessage("success", "Registered successfully");
 
         console.log(user);
-        localStorage.setItem("user",user);
+        localStorage.setItem("user", user);
 
         var lastUser = localStorage.getItem("user");
     }
