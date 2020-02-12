@@ -55,10 +55,11 @@ body {
     font-size: 30px;
 }
 
-#nameBox {
-    margin-left: 200px;
-    padding-bottom: 0px;
-    
+.nameBox {
+    margin-top: -40px;
+    margin-left: 350px;
+    background-color: #5A6772;
+    border: 1px solid #1d3c6a;
 }
 
 #progress {
@@ -72,11 +73,31 @@ body {
     background-color:#57636e;
 } 
 
-#btn0:hover, #btn1:hover, #btn2:hover, #btn3:hover {
+#btn0:focus, #btn1:focus, #btn2:focus, #btn3:focus {
     outline:0;
 }
 
+#msg {
+    visibility: hidden;
+    margin-top: 0px;
+    margin-left:350px;
+    font-weight:700;
+    height:1.2em;
+    font-size:1.2em;
+}
+
+#msg.success,
+#msg.error {
+    visibility:visible;
+}
+
+#msg.success {
+    color: rgb(6, 180, 78);
+}
+#msg.error {
+    color:red;
+}
+
 #timer {
-    font-size: 40px;
-    
+    font-size: 40px;   
 }

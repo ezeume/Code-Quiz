@@ -1,4 +1,19 @@
 var count =60
+
+
+var questions = [
+    new Question("Which one is not an object oriented programming language?", ["Java", "C#", "C++", "C"], "C"),
+    new Question("Which language is used for styling web pages?", ["HTML", "JQUERY", "CSS", "XML"], "CSS"),
+    new Question("There are ____ main components of object oriented programming.", ["1", "6", "2", "4"], "4"),
+    new Question("Which language is used for web apps?", ["PHP", "Python", "javascript", "ALL"], "ALL"),
+    new Question("MVC is a ____", ["Language", "Library", "Framework", "All"], "Framework")
+    ];
+
+    
+    var quiz = new Quiz(questions);
+
+
+
     
 function Question(text, choices, answer) {
     this.text=text;
@@ -8,17 +23,18 @@ function Question(text, choices, answer) {
 
 Question.prototype.correctAnswer = function(choice) {
     return choice === this.answer;
-}
+};
 
 
 
-
+//Determine number of questions to scores 
 function Quiz(questions) {
     this.score = 0;
     this.questions = questions;
     this.questionIndex = 0;
 }
 
+//Functions to check correctAnswer to usersAnswer
 Quiz.prototype.getQuestionIndex = function(){
     return this.questions[this.questionIndex];
 }
@@ -36,6 +52,7 @@ Quiz.prototype.guess = function(answer) {
     this.questionIndex++;
 }
 
+//Time count
 var countInterval;
 
 function startTimer() {
@@ -54,6 +71,7 @@ function startTimer() {
     populate();
 }
 
+//
 function populate() {
     if(quiz.isEnded()) {
         clearInterval(countInterval)
@@ -88,7 +106,7 @@ function guess(id, guess) {
 function showProgress() {
     var currentQuestionNumber = quiz.questionIndex + 1;
     var element = document.getElementById("progress");
-    element.innerHTML = "Question" + currentQuestionNumber + "of " + quiz.questions.length;
+    element.innerHTML = "Question" + currentQuestionNumber + " of " + quiz.questions.length;
 }
 
 function showScores() {
@@ -97,30 +115,41 @@ function showScores() {
     var element = document.getElementById("quiz");
     element.innerHTML = gameOverHtml;
 
-    // save to local storage
-    if (user.name === "") {
-        displayMessage("success", "Registered successfully");
-    }
-    var scoresObject = JSON.parse(localStorage.getItem("scores"));
-    userNameSpan.textContent = lastUser.name;
-
-    // Push a new value to the scores Object containing the initials and the score
-
-    localStorage.setItem("scores", JSON.stringify(scoresObject));
 };
 
-
-var questions = [
-new Question("Which one is not an object oriented programming language?", ["Java", "C#", "C++", "C"], "C"),
-new Question("Which language is used for styling web pages?", ["HTML", "JQUERY", "CSS", "XML"], "CSS"),
-new Question("There are ____ main components of object oriented programming.", ["1", "6", "2", "4"], "4"),
-new Question("Which language is used for web apps?", ["PHP", "Python", "javascript", "ALL"], "ALL"),
-new Question("MVC is a ____", ["Language", "Library", "Framework", "All"], "Framework")
-];
-
-var quiz = new Quiz(questions);
-
 startTimer();
+
+  
+// save to local storage
+var nameInput = document.querySelector("#name");
+var submitButton = document.querySelector("#btnn");
+var msgDiv = document.querySelector("#msg");
+var userScore = document.querySelector("#score");
+
+
+function displayMessage(type,message) {
+    msgDiv.textContent = message;
+    msgDiv.setAttribute("class",type);
+}
+
+submitButton.addEventListener("click",function(event){
+    event.preventDefault();
+
+    var user = {
+        name:nameInput.value.trim(),
+    };
+
+    if(user.name ==="") {
+        displayMessage("error", "Name cannot be blank");
+    }else {
+        displayMessage("success", "Registered successfully");
+
+        console.log(user);
+        localStorage.setItem("user",user);
+
+        var lastUser = localStorage.getItem("user");
+    }
+})
 
 
 
